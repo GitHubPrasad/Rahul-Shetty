@@ -1,0 +1,14 @@
+import org.testng.annotations.Test;
+
+import Files.Payload;
+import io.restassured.path.json.JsonPath;
+
+public class SumValidation 
+{
+	@Test
+	public void sumOfCourses()
+	{
+		JsonPath js = new JsonPath(Payload.CoursePrice());
+	}
+	
+}
