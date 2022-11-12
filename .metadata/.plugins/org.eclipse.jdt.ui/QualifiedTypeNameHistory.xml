@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="io.restassured.RestAssured"/>
     <fullyQualifiedTypeName name="org.hamcrest.Matchers"/>
-    <fullyQualifiedTypeName name="Files.ReusableMethods"/>
-    <fullyQualifiedTypeName name="org.testng.annotations.Test"/>
-    <fullyQualifiedTypeName name="io.restassured.path.json.JsonPath"/>
-    <fullyQualifiedTypeName name="Files.Payload"/>
     <fullyQualifiedTypeName name="groovy.util.logging.Log"/>
     <fullyQualifiedTypeName name="org.testng.Assert"/>
+    <fullyQualifiedTypeName name="org.testng.annotations.Test"/>
+    <fullyQualifiedTypeName name="io.restassured.RestAssured"/>
+    <fullyQualifiedTypeName name="Files.Payload"/>
+    <fullyQualifiedTypeName name="io.restassured.path.json.JsonPath"/>
+    <fullyQualifiedTypeName name="Files.ReusableMethods"/>
+    <fullyQualifiedTypeName name="org.testng.annotations.DataProvider"/>
+    <fullyQualifiedTypeName name="java.nio.file.Paths"/>
 </qualifiedTypeNameHistroy>

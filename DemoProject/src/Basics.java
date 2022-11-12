@@ -4,6 +4,8 @@ import io.restassured.path.json.JsonPath;
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
+import java.nio.file.Paths;
+
 import org.testng.Assert;
 
 import Files.Payload;
@@ -24,17 +26,20 @@ public class Basics
 		
 //		Validate if Add place API is working as expected
 		
+//		How to directly give JSON file path in your code without storing JSON anywhere in the Project
+//		.body(new String(Files.readAllBytes(Paths.get("D:\\Prasad\\payload.json"))))
+		
 		RestAssured.baseURI = "https://rahulshettyacademy.com";
 		
 		String response =
 		given().log().all()
-		.queryParam("key", "qaclick123").header("Content-Type","application/json")
-		.body(Payload.AddPlace()).
+			.queryParam("key", "qaclick123").header("Content-Type","application/json")
+			.body(Payload.AddPlace()).
 		when()
-		.post("maps/api/place/add/json").
+			.post("maps/api/place/add/json").
 		then()
-		.assertThat().statusCode(200).body("scope", equalTo("APP")).header("server", "Apache/2.4.41 (Ubuntu)")
-		.extract().response().asString();
+			.assertThat().statusCode(200).body("scope", equalTo("APP")).header("server", "Apache/2.4.41 (Ubuntu)")
+			.extract().response().asString();
 	
 		System.out.println(response);
 		
@@ -46,30 +51,31 @@ public class Basics
 //		Update Place	
 		String newAddress = "Shivaji Nagar";
 		given().log().all()
-		.queryParam("key", "qaclick123").header("Content-Type","application/json")
-		.body("{\r\n"
+			.queryParam("key", "qaclick123").header("Content-Type","application/json")
+			.body("{\r\n"
 				+ "\"place_id\":\""+placeId+"\",\r\n"
 				+ "\"address\":\""+newAddress+"\",\r\n"
 				+ "\"key\":\"qaclick123\"\r\n"
 				+ "}").
 		when()
-		.put("maps/api/place/update/json").
+			.put("maps/api/place/update/json").
 		then()
-		.assertThat().log().all().statusCode(200).body("msg", equalTo("Address successfully updated"));
+			.assertThat().log().all().statusCode(200).body("msg", equalTo("Address successfully updated"));
 		
 //		Get Place
 		String getPlaceResponse =
 		given().log().all()
-		.queryParam("key", "qaclick123").queryParam("place_id", placeId).
+			.queryParam("key", "qaclick123").queryParam("place_id", placeId).
 		when()
-		.get("maps/api/place/get/json").
+			.get("maps/api/place/get/json").
 		then()
-		.assertThat().log().all().statusCode(200).extract().response().asString();
+			.assertThat().log().all().statusCode(200).extract().response().asString();
 				
 //		Java Related Code
 		JsonPath js1 = ReusableMethods.rawToJson(getPlaceResponse);
 		String actualAddress = js1.getString("address");
 		System.out.println(actualAddress);
+		
 //		TestNG assert method
 		Assert.assertEquals(actualAddress, newAddress);
 		

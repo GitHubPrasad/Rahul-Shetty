@@ -1,0 +1,55 @@
+package Files;
+
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import io.restassured.RestAssured;
+import io.restassured.path.json.JsonPath;
+
+import static io.restassured.RestAssured.*;
+
+public class DynamicJson 
+{
+
+	@Test(dataProvider = "BooksData")
+	public void addBook(String isbn, String aisle)
+	{
+		RestAssured.baseURI="https://rahulshettyacademy.com";
+		
+		String response =
+				
+//		given() is a static and for this we have import "static io.restassured.RestAssured.*" package manually
+		
+		given()
+			.log().all().header("Content-Type","application/json").body(Payload.AddBook(isbn,aisle)).
+		when()
+			.log().all().post("/Library/Addbook.php").
+		then()
+			.log().all().assertThat().statusCode(200)
+			.extract().response().asString();
+		
+		JsonPath js = ReusableMethods.rawToJson(response);
+		String id = js.get("ID");
+		System.out.println(id);
+	}
+	
+//	Array: Collection of elements
+//	By using DataProvider we can run one test multiple times with different data sets
+	
+	@DataProvider(name="BooksData")
+	public Object[][] getData()
+	{
+		return new Object[][] {{"odjgbh","1234"},{"dfwef","3424"},{"wefwf","0858"}};   
+		// Bcoz of 3 arrays test will run 3 times
+	}
+	
+//	Note: return type, no. of arguments must be same
+	
+	
+	
+	
+	
+	
+	
+	
+}
